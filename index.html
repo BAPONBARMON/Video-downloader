@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Direct Video Downloader</title>
+
+<style>
+*{box-sizing:border-box;font-family:monospace}
+body{
+  margin:0;
+  background:#000;
+  color:#00ff66;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:100vh;
+}
+.container{
+  width:100%;
+  max-width:420px;
+  background:#020a05;
+  border:1px solid #00ff66;
+  border-radius:12px;
+  padding:20px;
+  box-shadow:0 0 25px #00ff6644;
+}
+h1{
+  text-align:center;
+  font-size:20px;
+  margin-bottom:15px;
+}
+input{
+  width:100%;
+  padding:12px;
+  background:black;
+  border:1px solid #00ff66;
+  color:#00ff66;
+  border-radius:8px;
+  outline:none;
+}
+button{
+  width:100%;
+  margin-top:12px;
+  padding:12px;
+  background:#00ff66;
+  color:black;
+  font-weight:bold;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+}
+button:hover{opacity:.85}
+video{
+  width:100%;
+  margin-top:15px;
+  border-radius:10px;
+  display:none;
+}
+.info{
+  font-size:13px;
+  margin-top:10px;
+  opacity:.9;
+}
+.footer{
+  margin-top:18px;
+  text-align:center;
+  font-size:12px;
+  opacity:.6;
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+  <h1>Direct Video Downloader</h1>
+
+  <input id="videoUrl" placeholder="Paste direct video link (.mp4)" />
+
+  <button onclick="loadVideo()">Preview Video</button>
+
+  <video id="player" controls></video>
+
+  <div class="info" id="info"></div>
+
+  <button id="downloadBtn" style="display:none" onclick="downloadVideo()">Download Video</button>
+
+  <div class="footer">Powered by BAPON BARMON</div>
+</div>
+
+<script>
+let videoURL="";
+
+function loadVideo(){
+  const url=document.getElementById("videoUrl").value.trim();
+  if(!url){
+    alert("Please paste a video URL");
+    return;
+  }
+  videoURL=url;
+  const video=document.getElementById("player");
+  video.src=url;
+  video.style.display="block";
+  document.getElementById("downloadBtn").style.display="block";
+  document.getElementById("info").innerText="Video loaded successfully";
+}
+
+function downloadVideo(){
+  const a=document.createElement("a");
+  a.href=videoURL;
+  a.download="video.mp4";
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+}
+</script>
+</body>
+</html>
